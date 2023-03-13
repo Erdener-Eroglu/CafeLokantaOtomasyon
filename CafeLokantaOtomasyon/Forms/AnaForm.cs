@@ -1,6 +1,8 @@
 ﻿using AtesVeSuSiparisOtomasyonu.Data;
 using AtesVeSuSiparisOtomasyonu.Helpers;
 using AtesVeSuSiparisOtomasyonu.Models;
+using CafeLokantaOtomasyon.Models;
+
 namespace AtesVeSuSiparisOtomasyonu.Forms;
 
 public partial class AnaForm : Form
@@ -13,6 +15,7 @@ public partial class AnaForm : Form
     private Button _clickedKategori;
     private Button _clickedKat;
     Urun eklenecekUrun;
+    GunlukRapor rapor = new GunlukRapor();
 
     public EnvanterContext DataContext { get; set; }
     private void AnaForm_Load(object sender, EventArgs e)
@@ -301,6 +304,10 @@ public partial class AnaForm : Form
     private void btnHesap_Click(object sender, EventArgs e)
     {
         if (_seciliMasa == null) return;
+        foreach (var item in _seciliMasa.Sepet.Urunler)
+        {
+            rapor.UrunEkle(item);
+        }
         if (TotalFiyat(_seciliMasa.Sepet) != 0)
             _seciliMasa.Sepet.Urunler.Clear();
         MasaRengiBoya(_seciliMasa, Color.Green);
@@ -310,5 +317,17 @@ public partial class AnaForm : Form
         flpToplamFiyat.Controls.Clear();
         lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
         DataHelper.Save(DataContext);
+    }
+
+    private void btnGunlukRapor_Click(object sender, EventArgs e)
+    {
+        if(rapor.SatılanUrunler.Count == 0)
+        {
+            MessageBox.Show("Satılan bir ürün bulunmamaktadır.");
+            return;
+        }
+        rapor.GunlukRaporOlustur();
+        MessageBox.Show("Raporunuz Masaüstünde GünlükRapor.txt olarak oluşturuldu.");
+        rapor.SatılanUrunler.Clear();
     }
 }

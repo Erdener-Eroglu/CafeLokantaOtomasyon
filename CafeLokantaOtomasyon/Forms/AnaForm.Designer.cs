@@ -45,6 +45,7 @@
             label1 = new Label();
             lblToplam = new Label();
             btnHesap = new Button();
+            btnGunlukRapor = new Button();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -225,6 +226,7 @@
             tableLayoutPanel7.Controls.Add(label1, 0, 0);
             tableLayoutPanel7.Controls.Add(lblToplam, 1, 0);
             tableLayoutPanel7.Controls.Add(btnHesap, 1, 1);
+            tableLayoutPanel7.Controls.Add(btnGunlukRapor, 0, 1);
             tableLayoutPanel7.Dock = DockStyle.Fill;
             tableLayoutPanel7.Location = new Point(3, 366);
             tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -267,6 +269,16 @@
             btnHesap.UseVisualStyleBackColor = true;
             btnHesap.Click += btnHesap_Click;
             // 
+            // btnGunlukRapor
+            // 
+            btnGunlukRapor.Location = new Point(3, 46);
+            btnGunlukRapor.Name = "btnGunlukRapor";
+            btnGunlukRapor.Size = new Size(114, 54);
+            btnGunlukRapor.TabIndex = 3;
+            btnGunlukRapor.Text = "GünlükRapor";
+            btnGunlukRapor.UseVisualStyleBackColor = true;
+            btnGunlukRapor.Click += btnGunlukRapor_Click;
+            // 
             // AnaForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -306,5 +318,6 @@
         private Label label1;
         private Label lblToplam;
         private Button btnHesap;
+        private Button btnGunlukRapor;
     }
 }
