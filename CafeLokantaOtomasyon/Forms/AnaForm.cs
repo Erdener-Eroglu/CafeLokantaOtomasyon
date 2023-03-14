@@ -142,8 +142,6 @@ public partial class AnaForm : Form
 
     private void UrunButon_Click(object sender, EventArgs e)
     {
-
-
         if (_seciliMasa == null) return;
         if (_seciliMasa.Sepet == null)
         {
@@ -201,7 +199,6 @@ public partial class AnaForm : Form
             flpToplamFiyat.Controls.Add(lblFiyat);
             lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
         }
-
     }
     string toplamFiyat = "0";
     private void NudValue_Change(object sender, EventArgs e)

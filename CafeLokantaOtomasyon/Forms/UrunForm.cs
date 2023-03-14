@@ -46,7 +46,7 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
 
         private void pbUrunFoto_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dosyaAc = new OpenFileDialog();
+            //OpenFileDialog dosyaAc = new OpenFileDialog();
             dosyaAc.Title = "Resim Seçiniz";
             dosyaAc.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             dosyaAc.Multiselect = false;
