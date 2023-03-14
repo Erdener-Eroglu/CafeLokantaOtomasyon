@@ -200,7 +200,6 @@ public partial class AnaForm : Form
             lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
         }
     }
-    string toplamFiyat = "0";
     private void NudValue_Change(object sender, EventArgs e)
     {
 
@@ -247,7 +246,6 @@ public partial class AnaForm : Form
                     btn.BackColor = color;
                 }
             }
-
         }
     }
     private void UrunTemizle(Urun urun)
@@ -294,10 +292,8 @@ public partial class AnaForm : Form
                 total += item.ToplamFiyat();
             }
         }
-
         return total;
     }
-
     private void btnHesap_Click(object sender, EventArgs e)
     {
         if (_seciliMasa == null) return;
@@ -315,7 +311,6 @@ public partial class AnaForm : Form
         lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
         DataHelper.Save(DataContext);
     }
-
     private void btnGunlukRapor_Click(object sender, EventArgs e)
     {
         if (rapor.SatılanUrunler.Count == 0)
