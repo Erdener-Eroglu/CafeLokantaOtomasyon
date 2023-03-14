@@ -128,7 +128,7 @@ public partial class AnaForm : Form
             {
                 Button btnUrun = new Button();
                 btnUrun.Text = item.Ad;
-                btnUrun.Size = new Size(150, 100);
+                btnUrun.Size = new Size(250, 200);
                 btnUrun.BackgroundImage = (Image)(new ImageConverter().ConvertFrom(item.Foto));
                 btnUrun.BackgroundImageLayout = ImageLayout.Stretch;
                 btnUrun.Click += UrunButon_Click;
@@ -321,7 +321,7 @@ public partial class AnaForm : Form
 
     private void btnGunlukRapor_Click(object sender, EventArgs e)
     {
-        if(rapor.SatılanUrunler.Count == 0)
+        if (rapor.SatılanUrunler.Count == 0)
         {
             MessageBox.Show("Satılan bir ürün bulunmamaktadır.");
             return;

@@ -275,7 +275,7 @@
             btnGunlukRapor.Name = "btnGunlukRapor";
             btnGunlukRapor.Size = new Size(114, 54);
             btnGunlukRapor.TabIndex = 3;
-            btnGunlukRapor.Text = "GünlükRapor";
+            btnGunlukRapor.Text = "Günlük Rapor";
             btnGunlukRapor.UseVisualStyleBackColor = true;
             btnGunlukRapor.Click += btnGunlukRapor_Click;
             // 

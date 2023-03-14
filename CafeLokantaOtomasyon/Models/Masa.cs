@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AtesVeSuSiparisOtomasyonu.Models;
+﻿namespace AtesVeSuSiparisOtomasyonu.Models;
 
 public class Masa
 {
@@ -12,6 +6,5 @@ public class Masa
     public string Ad { get; set; }
     public Kat BulunduguKat { get; set; }
     public bool DoluMu { get; set; }
-
     public Sepet Sepet { get; set; }
 }
