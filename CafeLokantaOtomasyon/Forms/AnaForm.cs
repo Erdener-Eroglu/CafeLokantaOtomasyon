@@ -1,10 +1,10 @@
 ﻿using AtesVeSuSiparisOtomasyonu.Data;
 using AtesVeSuSiparisOtomasyonu.Helpers;
 using AtesVeSuSiparisOtomasyonu.Models;
+using CafeLokantaOtomasyon.Forms;
 using CafeLokantaOtomasyon.Models;
 
 namespace AtesVeSuSiparisOtomasyonu.Forms;
-
 public partial class AnaForm : Form
 {
     public AnaForm()
@@ -16,6 +16,7 @@ public partial class AnaForm : Form
     private Button _clickedKat;
     Urun eklenecekUrun;
     GunlukRapor rapor = new GunlukRapor();
+    FaturaForm faturaForm;
 
     public EnvanterContext DataContext { get; set; }
     private void AnaForm_Load(object sender, EventArgs e)
@@ -88,7 +89,7 @@ public partial class AnaForm : Form
             flpKategoriler.Controls.Add(btnKategori);
         }
         _seciliMasa = DataContext.Masalar.Find(x => x.Id.ToString() == (sender as Button).Name);
-        lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
+        lblToplam.Text = _seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C");
 
         if (_seciliMasa.Sepet != null)
         {
@@ -197,7 +198,7 @@ public partial class AnaForm : Form
             flpLabels.Controls.Add(labelAd);
             flpNuds.Controls.Add(nudAdet);
             flpToplamFiyat.Controls.Add(lblFiyat);
-            lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
+            lblToplam.Text = _seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C");
         }
     }
     private void NudValue_Change(object sender, EventArgs e)
@@ -229,7 +230,7 @@ public partial class AnaForm : Form
                 _seciliMasa.DoluMu = false;
             }
         }
-        lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
+        lblToplam.Text = _seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C");
         DataContext.Sepetler.Add(_seciliMasa.Sepet);
         DataHelper.Save(DataContext);
     }
@@ -282,33 +283,28 @@ public partial class AnaForm : Form
         }
     }
 
-    private decimal TotalFiyat(Sepet sepet)
-    {
-        decimal total = 0;
-        if (sepet != null)
-        {
-            foreach (var item in sepet.Urunler)
-            {
-                total += item.ToplamFiyat();
-            }
-        }
-        return total;
-    }
     private void btnHesap_Click(object sender, EventArgs e)
     {
         if (_seciliMasa == null) return;
+        if (faturaForm == null || faturaForm.IsDisposed)
+        {
+            faturaForm = new FaturaForm();
+            faturaForm.Text = "Fatura";
+            faturaForm.SeciliMasa = _seciliMasa;
+            faturaForm.Show();
+        }
         foreach (var item in _seciliMasa.Sepet.Urunler)
         {
             rapor.UrunEkle(item);
         }
-        if (TotalFiyat(_seciliMasa.Sepet) != 0)
+        if (_seciliMasa.Sepet.ToplamFiyatHesapla() != 0)
             _seciliMasa.Sepet.Urunler.Clear();
         MasaRengiBoya(_seciliMasa, Color.Green);
         _seciliMasa.DoluMu = false;
         flpLabels.Controls.Clear();
         flpNuds.Controls.Clear();
         flpToplamFiyat.Controls.Clear();
-        lblToplam.Text = TotalFiyat(_seciliMasa.Sepet).ToString();
+        lblToplam.Text = _seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C");
         DataHelper.Save(DataContext);
     }
     private void btnGunlukRapor_Click(object sender, EventArgs e)

@@ -68,7 +68,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1296, 557);
+            tableLayoutPanel1.Size = new Size(1355, 557);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // flpKatlar
@@ -79,7 +79,7 @@
             flpKatlar.FlowDirection = FlowDirection.TopDown;
             flpKatlar.Location = new Point(4, 4);
             flpKatlar.Name = "flpKatlar";
-            flpKatlar.Size = new Size(240, 549);
+            flpKatlar.Size = new Size(251, 549);
             flpKatlar.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -91,12 +91,12 @@
             tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel5, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(251, 4);
+            tableLayoutPanel2.Location = new Point(262, 4);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(1041, 549);
+            tableLayoutPanel2.Size = new Size(1089, 549);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -113,7 +113,7 @@
             tableLayoutPanel3.RowCount = 2;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 42.0370369F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 57.9629631F));
-            tableLayoutPanel3.Size = new Size(780, 541);
+            tableLayoutPanel3.Size = new Size(816, 541);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // flpMasalar
@@ -122,7 +122,7 @@
             flpMasalar.Dock = DockStyle.Fill;
             flpMasalar.Location = new Point(4, 4);
             flpMasalar.Name = "flpMasalar";
-            flpMasalar.Size = new Size(772, 220);
+            flpMasalar.Size = new Size(808, 220);
             flpMasalar.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -139,7 +139,7 @@
             tableLayoutPanel4.RowCount = 2;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 35.9504128F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 64.04958F));
-            tableLayoutPanel4.Size = new Size(772, 306);
+            tableLayoutPanel4.Size = new Size(808, 306);
             tableLayoutPanel4.TabIndex = 1;
             // 
             // flpKategoriler
@@ -148,7 +148,7 @@
             flpKategoriler.Dock = DockStyle.Fill;
             flpKategoriler.Location = new Point(4, 4);
             flpKategoriler.Name = "flpKategoriler";
-            flpKategoriler.Size = new Size(764, 102);
+            flpKategoriler.Size = new Size(800, 102);
             flpKategoriler.TabIndex = 0;
             // 
             // flpUrunler
@@ -157,7 +157,7 @@
             flpUrunler.Dock = DockStyle.Fill;
             flpUrunler.Location = new Point(4, 113);
             flpUrunler.Name = "flpUrunler";
-            flpUrunler.Size = new Size(764, 189);
+            flpUrunler.Size = new Size(800, 189);
             flpUrunler.TabIndex = 1;
             // 
             // tableLayoutPanel5
@@ -168,12 +168,12 @@
             tableLayoutPanel5.Controls.Add(tableLayoutPanel6, 0, 0);
             tableLayoutPanel5.Controls.Add(tableLayoutPanel7, 0, 1);
             tableLayoutPanel5.Dock = DockStyle.Fill;
-            tableLayoutPanel5.Location = new Point(791, 4);
+            tableLayoutPanel5.Location = new Point(827, 4);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 2;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 67.09797F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 32.9020348F));
-            tableLayoutPanel5.Size = new Size(246, 541);
+            tableLayoutPanel5.Size = new Size(258, 541);
             tableLayoutPanel5.TabIndex = 1;
             // 
             // tableLayoutPanel6
@@ -191,7 +191,7 @@
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel6.Size = new Size(240, 357);
+            tableLayoutPanel6.Size = new Size(252, 357);
             tableLayoutPanel6.TabIndex = 0;
             // 
             // flpLabels
@@ -199,23 +199,23 @@
             flpLabels.Dock = DockStyle.Fill;
             flpLabels.Location = new Point(3, 3);
             flpLabels.Name = "flpLabels";
-            flpLabels.Size = new Size(90, 351);
+            flpLabels.Size = new Size(94, 351);
             flpLabels.TabIndex = 0;
             // 
             // flpNuds
             // 
             flpNuds.Dock = DockStyle.Fill;
-            flpNuds.Location = new Point(99, 3);
+            flpNuds.Location = new Point(103, 3);
             flpNuds.Name = "flpNuds";
-            flpNuds.Size = new Size(52, 351);
+            flpNuds.Size = new Size(54, 351);
             flpNuds.TabIndex = 1;
             // 
             // flpToplamFiyat
             // 
             flpToplamFiyat.Dock = DockStyle.Fill;
-            flpToplamFiyat.Location = new Point(157, 3);
+            flpToplamFiyat.Location = new Point(163, 3);
             flpToplamFiyat.Name = "flpToplamFiyat";
-            flpToplamFiyat.Size = new Size(80, 351);
+            flpToplamFiyat.Size = new Size(86, 351);
             flpToplamFiyat.TabIndex = 2;
             // 
             // tableLayoutPanel7
@@ -233,7 +233,7 @@
             tableLayoutPanel7.RowCount = 2;
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 75F));
-            tableLayoutPanel7.Size = new Size(240, 172);
+            tableLayoutPanel7.Size = new Size(252, 172);
             tableLayoutPanel7.TabIndex = 1;
             // 
             // label1
@@ -244,7 +244,7 @@
             label1.Location = new Point(20, 0);
             label1.Margin = new Padding(20, 0, 3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(97, 28);
+            label1.Size = new Size(103, 28);
             label1.TabIndex = 0;
             label1.Text = "Toplam:";
             // 
@@ -253,15 +253,15 @@
             lblToplam.AutoSize = true;
             lblToplam.Dock = DockStyle.Top;
             lblToplam.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblToplam.Location = new Point(123, 0);
+            lblToplam.Location = new Point(129, 0);
             lblToplam.Name = "lblToplam";
-            lblToplam.Size = new Size(114, 31);
+            lblToplam.Size = new Size(120, 31);
             lblToplam.TabIndex = 1;
             lblToplam.Text = "0";
             // 
             // btnHesap
             // 
-            btnHesap.Location = new Point(123, 46);
+            btnHesap.Location = new Point(129, 46);
             btnHesap.Name = "btnHesap";
             btnHesap.Size = new Size(114, 54);
             btnHesap.TabIndex = 2;
@@ -283,7 +283,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1296, 557);
+            ClientSize = new Size(1355, 557);
             Controls.Add(tableLayoutPanel1);
             Name = "AnaForm";
             Text = "AnaForm";
