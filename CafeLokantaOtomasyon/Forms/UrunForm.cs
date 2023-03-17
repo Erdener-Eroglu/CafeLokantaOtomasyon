@@ -92,11 +92,14 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
             Urun urun = (Urun)lstUrunler.SelectedItem;
             try
             {
-                if (AynisiVarMi(txtUrunAdi.Text))
+                if(urun.Ad != txtUrunAdi.Text)
                 {
-                    MessageBox.Show("Bu ürün bulunmaktadır. Lütfen adını değiştirin");
-                    txtUrunAdi.Clear();
-                    return;
+                    if (AynisiVarMi(txtUrunAdi.Text))
+                    {
+                        MessageBox.Show("Bu ürün bulunmaktadır. Lütfen adını değiştirin");
+                        txtUrunAdi.Clear();
+                        return;
+                    }
                 }
                 if (pbUrunFoto.Image != null)
                 {

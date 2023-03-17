@@ -65,13 +65,17 @@ public partial class KategoriForm : Form
         }
         try
         {
-            if (AynisiVarMi(txtKategori.Text))
-            {
-                MessageBox.Show("Bu kategori bulunmaktadır. Lütfen adını değiştirin");
-                txtKategori.Clear();
-                return;
-            }
+
             Kategori seciliKategori = (Kategori)lstKategori.SelectedItem;
+            if (seciliKategori.Ad != txtKategori.Text)
+            {
+                if (AynisiVarMi(txtKategori.Text))
+                {
+                    MessageBox.Show("Bu ürün bulunmaktadır. Lütfen adını değiştirin");
+                    txtKategori.Clear();
+                    return;
+                }
+            }
             seciliKategori.Ad = txtKategori.Text;
             lstKategori.DataSource = null;
             lstKategori.DataSource = DataContext.Kategoriler;

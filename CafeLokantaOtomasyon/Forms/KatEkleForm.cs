@@ -74,11 +74,14 @@ public partial class KatEkleForm : Form
         Kat seciliKat = (Kat)lstKatlar.SelectedItem;
         try
         {
-            if (AynisiVarMi(txtKatIsmi.Text))
+            if (seciliKat.Ad != txtKatIsmi.Text)
             {
-                MessageBox.Show("Bu kat bulunmaktadır. Lütfen adını değiştirin");
-                txtKatIsmi.Clear();
-                return;
+                if (AynisiVarMi(txtKatIsmi.Text))
+                {
+                    MessageBox.Show("Bu ürün bulunmaktadır. Lütfen adını değiştirin");
+                    txtKatIsmi.Clear();
+                    return;
+                }
             }
             seciliKat.Ad = txtKatIsmi.Text;
             seciliKat.MasaSayisi = Convert.ToInt32(txtMasaSayisi.Text);
