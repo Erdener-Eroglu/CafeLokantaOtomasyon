@@ -32,12 +32,12 @@
             label1 = new Label();
             txtKatIsmi = new TextBox();
             lstKatlar = new ListBox();
+            cmsSil = new ContextMenuStrip(components);
+            silToolStripMenuItem = new ToolStripMenuItem();
             btnKaydet = new Button();
             btnGuncelle = new Button();
             label2 = new Label();
             txtMasaSayisi = new TextBox();
-            cmsSil = new ContextMenuStrip(components);
-            silToolStripMenuItem = new ToolStripMenuItem();
             cmsSil.SuspendLayout();
             SuspendLayout();
             // 
@@ -65,8 +65,22 @@
             lstKatlar.Location = new Point(314, 22);
             lstKatlar.Name = "lstKatlar";
             lstKatlar.Size = new Size(162, 184);
-            lstKatlar.TabIndex = 2;
+            lstKatlar.TabIndex = 4;
             lstKatlar.SelectedIndexChanged += lstKatlar_SelectedIndexChanged;
+            // 
+            // cmsSil
+            // 
+            cmsSil.ImageScalingSize = new Size(20, 20);
+            cmsSil.Items.AddRange(new ToolStripItem[] { silToolStripMenuItem });
+            cmsSil.Name = "contextMenuStrip1";
+            cmsSil.Size = new Size(95, 28);
+            // 
+            // silToolStripMenuItem
+            // 
+            silToolStripMenuItem.Name = "silToolStripMenuItem";
+            silToolStripMenuItem.Size = new Size(94, 24);
+            silToolStripMenuItem.Text = "Sil";
+            silToolStripMenuItem.Click += silToolStripMenuItem_Click;
             // 
             // btnKaydet
             // 
@@ -104,25 +118,11 @@
             txtMasaSayisi.Size = new Size(191, 27);
             txtMasaSayisi.TabIndex = 1;
             // 
-            // cmsSil
-            // 
-            cmsSil.ImageScalingSize = new Size(20, 20);
-            cmsSil.Items.AddRange(new ToolStripItem[] { silToolStripMenuItem });
-            cmsSil.Name = "contextMenuStrip1";
-            cmsSil.Size = new Size(211, 56);
-            // 
-            // silToolStripMenuItem
-            // 
-            silToolStripMenuItem.Name = "silToolStripMenuItem";
-            silToolStripMenuItem.Size = new Size(210, 24);
-            silToolStripMenuItem.Text = "Sil";
-            silToolStripMenuItem.Click += silToolStripMenuItem_Click;
-            // 
             // KatEkleForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(501, 249);
+            ClientSize = new Size(525, 287);
             Controls.Add(btnGuncelle);
             Controls.Add(btnKaydet);
             Controls.Add(lstKatlar);
@@ -133,6 +133,7 @@
             Name = "KatEkleForm";
             Text = "KatEkleForm";
             Load += KatEkleForm_Load;
+            Click += KatEkleForm_Click;
             cmsSil.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

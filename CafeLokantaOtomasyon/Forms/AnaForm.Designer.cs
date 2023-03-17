@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnaForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             flpKatlar = new FlowLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -44,8 +45,14 @@
             tableLayoutPanel7 = new TableLayoutPanel();
             label1 = new Label();
             lblToplam = new Label();
-            btnHesap = new Button();
             btnGunlukRapor = new Button();
+            btnHesap = new Button();
+            btnHesapKapat = new Button();
+            btnAylikRapor = new Button();
+            printAdisyon = new System.Drawing.Printing.PrintDocument();
+            printPreview = new PrintPreviewDialog();
+            printGunlukRapor = new System.Drawing.Printing.PrintDocument();
+            printAylikRapor = new System.Drawing.Printing.PrintDocument();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -86,8 +93,8 @@
             // 
             tableLayoutPanel2.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75.757576F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.242424F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 68.65809F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.3419113F));
             tableLayoutPanel2.Controls.Add(tableLayoutPanel3, 0, 0);
             tableLayoutPanel2.Controls.Add(tableLayoutPanel5, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
@@ -113,7 +120,7 @@
             tableLayoutPanel3.RowCount = 2;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 42.0370369F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 57.9629631F));
-            tableLayoutPanel3.Size = new Size(816, 541);
+            tableLayoutPanel3.Size = new Size(739, 541);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // flpMasalar
@@ -122,7 +129,7 @@
             flpMasalar.Dock = DockStyle.Fill;
             flpMasalar.Location = new Point(4, 4);
             flpMasalar.Name = "flpMasalar";
-            flpMasalar.Size = new Size(808, 220);
+            flpMasalar.Size = new Size(731, 220);
             flpMasalar.TabIndex = 0;
             // 
             // tableLayoutPanel4
@@ -139,7 +146,7 @@
             tableLayoutPanel4.RowCount = 2;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 35.9504128F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 64.04958F));
-            tableLayoutPanel4.Size = new Size(808, 306);
+            tableLayoutPanel4.Size = new Size(731, 306);
             tableLayoutPanel4.TabIndex = 1;
             // 
             // flpKategoriler
@@ -148,7 +155,7 @@
             flpKategoriler.Dock = DockStyle.Fill;
             flpKategoriler.Location = new Point(4, 4);
             flpKategoriler.Name = "flpKategoriler";
-            flpKategoriler.Size = new Size(800, 102);
+            flpKategoriler.Size = new Size(723, 102);
             flpKategoriler.TabIndex = 0;
             // 
             // flpUrunler
@@ -157,7 +164,7 @@
             flpUrunler.Dock = DockStyle.Fill;
             flpUrunler.Location = new Point(4, 113);
             flpUrunler.Name = "flpUrunler";
-            flpUrunler.Size = new Size(800, 189);
+            flpUrunler.Size = new Size(723, 189);
             flpUrunler.TabIndex = 1;
             // 
             // tableLayoutPanel5
@@ -168,20 +175,20 @@
             tableLayoutPanel5.Controls.Add(tableLayoutPanel6, 0, 0);
             tableLayoutPanel5.Controls.Add(tableLayoutPanel7, 0, 1);
             tableLayoutPanel5.Dock = DockStyle.Fill;
-            tableLayoutPanel5.Location = new Point(827, 4);
+            tableLayoutPanel5.Location = new Point(750, 4);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 2;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 67.09797F));
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 32.9020348F));
-            tableLayoutPanel5.Size = new Size(258, 541);
+            tableLayoutPanel5.Size = new Size(335, 541);
             tableLayoutPanel5.TabIndex = 1;
             // 
             // tableLayoutPanel6
             // 
             tableLayoutPanel6.ColumnCount = 3;
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.166666F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.8333321F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 47.11246F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.7963524F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.0911846F));
             tableLayoutPanel6.Controls.Add(flpLabels, 0, 0);
             tableLayoutPanel6.Controls.Add(flpNuds, 1, 0);
             tableLayoutPanel6.Controls.Add(flpToplamFiyat, 2, 0);
@@ -191,7 +198,7 @@
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel6.Size = new Size(252, 357);
+            tableLayoutPanel6.Size = new Size(329, 357);
             tableLayoutPanel6.TabIndex = 0;
             // 
             // flpLabels
@@ -199,23 +206,23 @@
             flpLabels.Dock = DockStyle.Fill;
             flpLabels.Location = new Point(3, 3);
             flpLabels.Name = "flpLabels";
-            flpLabels.Size = new Size(94, 351);
+            flpLabels.Size = new Size(149, 351);
             flpLabels.TabIndex = 0;
             // 
             // flpNuds
             // 
             flpNuds.Dock = DockStyle.Fill;
-            flpNuds.Location = new Point(103, 3);
+            flpNuds.Location = new Point(158, 3);
             flpNuds.Name = "flpNuds";
-            flpNuds.Size = new Size(54, 351);
+            flpNuds.Size = new Size(69, 351);
             flpNuds.TabIndex = 1;
             // 
             // flpToplamFiyat
             // 
             flpToplamFiyat.Dock = DockStyle.Fill;
-            flpToplamFiyat.Location = new Point(163, 3);
+            flpToplamFiyat.Location = new Point(233, 3);
             flpToplamFiyat.Name = "flpToplamFiyat";
-            flpToplamFiyat.Size = new Size(86, 351);
+            flpToplamFiyat.Size = new Size(93, 351);
             flpToplamFiyat.TabIndex = 2;
             // 
             // tableLayoutPanel7
@@ -225,15 +232,18 @@
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel7.Controls.Add(label1, 0, 0);
             tableLayoutPanel7.Controls.Add(lblToplam, 1, 0);
-            tableLayoutPanel7.Controls.Add(btnHesap, 1, 1);
             tableLayoutPanel7.Controls.Add(btnGunlukRapor, 0, 1);
+            tableLayoutPanel7.Controls.Add(btnHesap, 1, 1);
+            tableLayoutPanel7.Controls.Add(btnHesapKapat, 1, 2);
+            tableLayoutPanel7.Controls.Add(btnAylikRapor, 0, 2);
             tableLayoutPanel7.Dock = DockStyle.Fill;
             tableLayoutPanel7.Location = new Point(3, 366);
             tableLayoutPanel7.Name = "tableLayoutPanel7";
-            tableLayoutPanel7.RowCount = 2;
-            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 75F));
-            tableLayoutPanel7.Size = new Size(252, 172);
+            tableLayoutPanel7.RowCount = 3;
+            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 22.0930233F));
+            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 37.2093F));
+            tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 40.6976738F));
+            tableLayoutPanel7.Size = new Size(329, 172);
             tableLayoutPanel7.TabIndex = 1;
             // 
             // label1
@@ -244,7 +254,7 @@
             label1.Location = new Point(20, 0);
             label1.Margin = new Padding(20, 0, 3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(103, 28);
+            label1.Size = new Size(141, 28);
             label1.TabIndex = 0;
             label1.Text = "Toplam:";
             // 
@@ -253,31 +263,77 @@
             lblToplam.AutoSize = true;
             lblToplam.Dock = DockStyle.Top;
             lblToplam.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblToplam.Location = new Point(129, 0);
+            lblToplam.Location = new Point(167, 0);
             lblToplam.Name = "lblToplam";
-            lblToplam.Size = new Size(120, 31);
+            lblToplam.Size = new Size(159, 31);
             lblToplam.TabIndex = 1;
             lblToplam.Text = "0";
             // 
-            // btnHesap
-            // 
-            btnHesap.Location = new Point(129, 46);
-            btnHesap.Name = "btnHesap";
-            btnHesap.Size = new Size(114, 54);
-            btnHesap.TabIndex = 2;
-            btnHesap.Text = "Hesap Al";
-            btnHesap.UseVisualStyleBackColor = true;
-            btnHesap.Click += btnHesap_Click;
-            // 
             // btnGunlukRapor
             // 
-            btnGunlukRapor.Location = new Point(3, 46);
+            btnGunlukRapor.Dock = DockStyle.Fill;
+            btnGunlukRapor.Location = new Point(3, 41);
             btnGunlukRapor.Name = "btnGunlukRapor";
-            btnGunlukRapor.Size = new Size(114, 54);
+            btnGunlukRapor.Size = new Size(158, 58);
             btnGunlukRapor.TabIndex = 3;
             btnGunlukRapor.Text = "Günlük Rapor";
             btnGunlukRapor.UseVisualStyleBackColor = true;
             btnGunlukRapor.Click += btnGunlukRapor_Click;
+            // 
+            // btnHesap
+            // 
+            btnHesap.Dock = DockStyle.Fill;
+            btnHesap.Location = new Point(167, 41);
+            btnHesap.Name = "btnHesap";
+            btnHesap.Size = new Size(159, 58);
+            btnHesap.TabIndex = 2;
+            btnHesap.Text = "Adisyon";
+            btnHesap.UseVisualStyleBackColor = true;
+            btnHesap.Click += btnHesap_Click;
+            // 
+            // btnHesapKapat
+            // 
+            btnHesapKapat.Dock = DockStyle.Fill;
+            btnHesapKapat.Location = new Point(167, 105);
+            btnHesapKapat.Name = "btnHesapKapat";
+            btnHesapKapat.Size = new Size(159, 64);
+            btnHesapKapat.TabIndex = 4;
+            btnHesapKapat.Text = "Hesap Kapat";
+            btnHesapKapat.UseVisualStyleBackColor = true;
+            btnHesapKapat.Click += btnHesapKapat_Click;
+            // 
+            // btnAylikRapor
+            // 
+            btnAylikRapor.Dock = DockStyle.Fill;
+            btnAylikRapor.Location = new Point(3, 105);
+            btnAylikRapor.Name = "btnAylikRapor";
+            btnAylikRapor.Size = new Size(158, 64);
+            btnAylikRapor.TabIndex = 5;
+            btnAylikRapor.Text = "Aylık Rapor";
+            btnAylikRapor.UseVisualStyleBackColor = true;
+            btnAylikRapor.Click += btnAylikRapor_Click;
+            // 
+            // printAdisyon
+            // 
+            printAdisyon.PrintPage += printAdisyon_PrintPage;
+            // 
+            // printPreview
+            // 
+            printPreview.AutoScrollMargin = new Size(0, 0);
+            printPreview.AutoScrollMinSize = new Size(0, 0);
+            printPreview.ClientSize = new Size(400, 300);
+            printPreview.Enabled = true;
+            printPreview.Icon = (Icon)resources.GetObject("printPreview.Icon");
+            printPreview.Name = "printPreview";
+            printPreview.Visible = false;
+            // 
+            // printGunlukRapor
+            // 
+            printGunlukRapor.PrintPage += printGunlukRapor_PrintPage;
+            // 
+            // printAylikRapor
+            // 
+            printAylikRapor.PrintPage += printAylikRapor_PrintPage;
             // 
             // AnaForm
             // 
@@ -319,5 +375,11 @@
         private Label lblToplam;
         private Button btnHesap;
         private Button btnGunlukRapor;
+        private System.Drawing.Printing.PrintDocument printAdisyon;
+        private PrintPreviewDialog printPreview;
+        private Button btnHesapKapat;
+        private System.Drawing.Printing.PrintDocument printGunlukRapor;
+        private Button btnAylikRapor;
+        private System.Drawing.Printing.PrintDocument printAylikRapor;
     }
 }

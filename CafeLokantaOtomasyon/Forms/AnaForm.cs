@@ -1,8 +1,8 @@
 ﻿using AtesVeSuSiparisOtomasyonu.Data;
 using AtesVeSuSiparisOtomasyonu.Helpers;
 using AtesVeSuSiparisOtomasyonu.Models;
-using CafeLokantaOtomasyon.Forms;
 using CafeLokantaOtomasyon.Models;
+using System.Drawing.Printing;
 
 namespace AtesVeSuSiparisOtomasyonu.Forms;
 public partial class AnaForm : Form
@@ -15,12 +15,30 @@ public partial class AnaForm : Form
     private Button _clickedKategori;
     private Button _clickedKat;
     Urun eklenecekUrun;
-    GunlukRapor rapor = new GunlukRapor();
-    FaturaForm faturaForm;
+    GunlukRapor rapor;
+    AylıkRapor aylikRapoor;
 
     public EnvanterContext DataContext { get; set; }
     private void AnaForm_Load(object sender, EventArgs e)
     {
+        if (DataContext.GunlukRapor != null)
+        {
+            rapor = DataContext.GunlukRapor;
+        }
+        else
+        {
+            rapor = new GunlukRapor();
+        }
+        if (DataContext.AylikRapor != null)
+        {
+            aylikRapoor = DataContext.AylikRapor;
+            btnAylikRapor.Enabled = true;
+        }
+        else
+        {
+            aylikRapoor = new AylıkRapor();
+            btnAylikRapor.Enabled = false;
+        }
         foreach (var item in DataContext.Katlar)
         {
             Button btn = new Button();
@@ -31,6 +49,7 @@ public partial class AnaForm : Form
             label1.Visible = false;
             lblToplam.Visible = false;
             btnHesap.Visible = false;
+            btnHesapKapat.Visible = false;
         }
     }
 
@@ -45,6 +64,7 @@ public partial class AnaForm : Form
         label1.Visible = false;
         lblToplam.Visible = false;
         btnHesap.Visible = false;
+        btnHesapKapat.Visible = false;
         if (_clickedKat != null) _clickedKat.BackColor = Color.White;
         foreach (var item in DataContext.Masalar)
         {
@@ -53,15 +73,18 @@ public partial class AnaForm : Form
                 Button btnMasa = new Button();
                 btnMasa.Name = item.Id.ToString();
                 btnMasa.Text = item.Ad;
+                btnMasa.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+                btnMasa.TextAlign = ContentAlignment.MiddleCenter;
+                btnMasa.ForeColor = Color.Black;
                 btnMasa.Size = new Size(60, 60);
                 btnMasa.Click += MasaButon_Click;
                 if (item.DoluMu)
                 {
-                    btnMasa.BackColor = Color.Red;
+                    btnMasa.BackColor = Color.DarkCyan;
                 }
                 else
                 {
-                    btnMasa.BackColor = Color.Green;
+                    btnMasa.BackColor = Color.AliceBlue;
                 }
                 flpMasalar.Controls.Add(btnMasa);
             }
@@ -72,9 +95,22 @@ public partial class AnaForm : Form
 
     private void MasaButon_Click(object sender, EventArgs e)
     {
-        label1.Visible = true;
-        btnHesap.Visible = true;
-        lblToplam.Visible = true;
+
+        _seciliMasa = DataContext.Masalar.Find(x => x.Id.ToString() == (sender as Button).Name);
+        if (_seciliMasa != null && _seciliMasa.DoluMu == true)
+        {
+            label1.Visible = true;
+            btnHesap.Visible = true;
+            btnHesapKapat.Visible = true;
+            lblToplam.Visible = true;
+        }
+        else
+        {
+            label1.Visible = false;
+            btnHesap.Visible = false;
+            btnHesapKapat.Visible = false;
+            lblToplam.Visible = false;
+        }
         flpKategoriler.Controls.Clear();
         flpUrunler.Controls.Clear();
         flpNuds.Controls.Clear();
@@ -88,9 +124,8 @@ public partial class AnaForm : Form
             btnKategori.Click += KategoriButon_Click;
             flpKategoriler.Controls.Add(btnKategori);
         }
-        _seciliMasa = DataContext.Masalar.Find(x => x.Id.ToString() == (sender as Button).Name);
-        lblToplam.Text = _seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C");
-
+        if (_seciliMasa.Sepet != null)
+            lblToplam.Text = _seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C");
         if (_seciliMasa.Sepet != null)
         {
             foreach (var item in _seciliMasa.Sepet.Urunler)
@@ -105,7 +140,6 @@ public partial class AnaForm : Form
                 nudAdet.Size = new Size(50, 20);
                 nudAdet.Value = item.SepetekiAdet;
                 nudAdet.ValueChanged += NudValue_Change;
-
                 Label lblFiyatM = new Label();
                 lblFiyatM.Name = "lbl" + item.Id.ToString();
                 lblFiyatM.Margin = new Padding(3, 0, 3, 10);
@@ -130,7 +164,8 @@ public partial class AnaForm : Form
                 Button btnUrun = new Button();
                 btnUrun.Text = item.Ad;
                 btnUrun.Size = new Size(250, 200);
-                btnUrun.BackgroundImage = (Image)(new ImageConverter().ConvertFrom(item.Foto));
+                if (item.Foto != null)
+                    btnUrun.BackgroundImage = (Image)(new ImageConverter().ConvertFrom(item.Foto));
                 btnUrun.BackgroundImageLayout = ImageLayout.Stretch;
                 btnUrun.Click += UrunButon_Click;
                 flpUrunler.Controls.Add(btnUrun);
@@ -138,7 +173,6 @@ public partial class AnaForm : Form
         }
         _clickedKategori = sender as Button;
         _clickedKategori.BackColor = Color.Gray;
-
     }
 
     private void UrunButon_Click(object sender, EventArgs e)
@@ -193,8 +227,12 @@ public partial class AnaForm : Form
             lblFiyat.Text = (eklenecekUrun.Fiyat * eklenecekUrun.SepetekiAdet).ToString();
             lblFiyat.Name = "lbl" + eklenecekUrun.Id.ToString();
             _seciliMasa.Sepet.Urunler.Add(eklenecekUrun);
-            MasaRengiBoya(_seciliMasa, Color.Red);
+            MasaRengiBoya(_seciliMasa, Color.DarkCyan);
             _seciliMasa.DoluMu = true;
+            label1.Visible = true;
+            btnHesap.Visible = true;
+            btnHesapKapat.Visible = true;
+            lblToplam.Visible = true;
             flpLabels.Controls.Add(labelAd);
             flpNuds.Controls.Add(nudAdet);
             flpToplamFiyat.Controls.Add(lblFiyat);
@@ -226,7 +264,7 @@ public partial class AnaForm : Form
             UrunTemizle(_seciliUrun);
             if (_seciliMasa.Sepet.Urunler.Count == 0)
             {
-                MasaRengiBoya(_seciliMasa, Color.Green);
+                MasaRengiBoya(_seciliMasa, Color.AliceBlue);
                 _seciliMasa.DoluMu = false;
             }
         }
@@ -282,40 +320,177 @@ public partial class AnaForm : Form
             }
         }
     }
-
     private void btnHesap_Click(object sender, EventArgs e)
     {
         if (_seciliMasa == null) return;
-        if (faturaForm == null || faturaForm.IsDisposed)
+        if (_seciliMasa != null && _seciliMasa.Sepet.Urunler.Count != 0)
         {
-            faturaForm = new FaturaForm();
-            faturaForm.Text = "Fatura";
-            faturaForm.SeciliMasa = _seciliMasa;
-            faturaForm.Show();
+            printAdisyon.DefaultPageSettings.PaperSize = new PaperSize("Custom", 300, 400);
+            printPreview.Document = printAdisyon;
+            printPreview.ShowDialog();
         }
+
+
+    }
+    private void btnGunlukRapor_Click(object sender, EventArgs e)
+    {
+        btnAylikRapor.Enabled = true;
+        rapor.Tarih = DateTime.Now;
+        printGunlukRapor.DefaultPageSettings.PaperSize = new PaperSize("Custom", 300, 400);
+        printPreview.Document = printGunlukRapor;
+        printPreview.ShowDialog();
+        aylikRapoor.Tarihler.Add(rapor.Tarih);
+        rapor.SatılanUrunler.Clear();
+        DataContext.GunlukRapor = null;
+        DataHelper.Save(DataContext);
+    }
+
+    private void printAdisyon_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+    {
+        int toplamUrun = 0;
+        foreach (var item in _seciliMasa.Sepet.Urunler)
+        {
+            toplamUrun += item.SepetekiAdet;
+        }
+        char[] ayrac = new char[65];
+        for (int i = 0; i < ayrac.Length; i++)
+        {
+            ayrac[i] = '-';
+
+        }
+
+        string ayırıcı = new string(ayrac);
+        int margin = 75;
+        int toplamMargin = margin;
+        e.Graphics.DrawString("ÖRNEK RESTORAN", new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(80, 20));
+        e.Graphics.DrawString("Tarih: " + DateTime.Now.ToString(), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, 45));
+        e.Graphics.DrawString("Kat / Masa: " + _seciliMasa.BulunduguKat.Ad + " / " + _seciliMasa.Ad, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, 60));
+        e.Graphics.DrawString(ayırıcı, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+        margin += 15;
+        foreach (var item in _seciliMasa.Sepet.Urunler)
+        {
+            e.Graphics.DrawString(item.Ad, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+            e.Graphics.DrawString(item.SepetekiAdet.ToString("00"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(150, margin));
+            e.Graphics.DrawString(item.ToplamFiyat().ToString("C"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(225, margin));
+            margin += 15;
+        }
+        e.Graphics.DrawString(ayırıcı, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+        margin += 15;
+        e.Graphics.DrawString("Genel Toplam: ", new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+        e.Graphics.DrawString(toplamUrun.ToString("00"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(150, margin));
+        e.Graphics.DrawString(_seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(225, margin));
+    }
+
+    private void btnHesapKapat_Click(object sender, EventArgs e)
+    {
         foreach (var item in _seciliMasa.Sepet.Urunler)
         {
             rapor.UrunEkle(item);
         }
+        aylikRapoor.GunlukCirolar.Add(rapor.ToplamFiyatHesapla());
+        DataContext.AylikRapor = aylikRapoor;
+        DataContext.GunlukRapor = rapor;
         if (_seciliMasa.Sepet.ToplamFiyatHesapla() != 0)
             _seciliMasa.Sepet.Urunler.Clear();
-        MasaRengiBoya(_seciliMasa, Color.Green);
+        MasaRengiBoya(_seciliMasa, Color.AliceBlue);
         _seciliMasa.DoluMu = false;
         flpLabels.Controls.Clear();
         flpNuds.Controls.Clear();
         flpToplamFiyat.Controls.Clear();
         lblToplam.Text = _seciliMasa.Sepet.ToplamFiyatHesapla().ToString("C");
+        label1.Visible = false;
+        btnHesap.Visible = false;
+        lblToplam.Visible = false;
         DataHelper.Save(DataContext);
+        btnHesapKapat.Visible = false;
     }
-    private void btnGunlukRapor_Click(object sender, EventArgs e)
+
+    private void printGunlukRapor_PrintPage(object sender, PrintPageEventArgs e)
     {
-        if (rapor.SatılanUrunler.Count == 0)
+        int toplamUrun = 0;
+        foreach (var item in rapor.SatılanUrunler)
         {
-            MessageBox.Show("Satılan bir ürün bulunmamaktadır.");
+            toplamUrun += item.SepetekiAdet;
+        }
+        char[] ayrac = new char[65];
+        for (int i = 0; i < ayrac.Length; i++)
+        {
+            ayrac[i] = '-';
+        }
+        int margin = 60;
+
+        string ayırıcı = new string(ayrac);
+        e.Graphics.DrawString("ÖRNEK RESTORAN", new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(80, 20));
+        e.Graphics.DrawString("Tarih: " + rapor.Tarih.ToString(), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, 45));
+        e.Graphics.DrawString(ayırıcı, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+        margin += 15;
+        foreach (var item in rapor.SatılanUrunler)
+        {
+            e.Graphics.DrawString(item.Ad, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+            e.Graphics.DrawString(item.SepetekiAdet.ToString("00"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(150, margin));
+            e.Graphics.DrawString(item.ToplamFiyat().ToString("C"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(225, margin));
+            margin += 15;
+        }
+        e.Graphics.DrawString(ayırıcı, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+        margin += 15;
+        e.Graphics.DrawString("Günlük Toplam: ", new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+        e.Graphics.DrawString(toplamUrun.ToString("00"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(150, margin));
+        e.Graphics.DrawString(rapor.ToplamFiyatHesapla().ToString("C"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(225, margin));
+    }
+
+    private void printAylikRapor_PrintPage(object sender, PrintPageEventArgs e)
+    {
+        decimal toplamCiro = 0;
+        foreach (var item in aylikRapoor.GunlukCirolar)
+        {
+            toplamCiro += item;
+        }
+        char[] ayrac = new char[65];
+        for (int i = 0; i < ayrac.Length; i++)
+        {
+            ayrac[i] = '-';
+        }
+        int margin = 60;
+        try
+        {
+            string ayırıcı = new string(ayrac);
+            e.Graphics.DrawString("ÖRNEK RESTORAN", new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(80, 20));
+            e.Graphics.DrawString("Tarih: " + rapor.Tarih.ToString(), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, 45));
+            e.Graphics.DrawString(ayırıcı, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+            margin += 15;
+            if (aylikRapoor.GunlukCirolar.Count > 0)
+            {
+                for (int i = 0; i < aylikRapoor.GunlukCirolar.Count; i++)
+                {
+                    e.Graphics.DrawString(aylikRapoor.Tarihler[i].ToString(), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+                    e.Graphics.DrawString(aylikRapoor.GunlukCirolar[i].ToString("C"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(150, margin));
+                    margin += 15;
+
+                }
+            }
+            e.Graphics.DrawString(ayırıcı, new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+            margin += 15;
+            e.Graphics.DrawString("Aylık Toplam Ciro: ", new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(10, margin));
+            e.Graphics.DrawString(toplamCiro.ToString("C"), new Font("Arial", 9, FontStyle.Regular), Brushes.Black, new Point(150, margin));
+        }
+        catch
+        {
+            MessageBox.Show("Önce Günlük Raporu Oluşturun");
             return;
         }
-        rapor.GunlukRaporOlustur();
-        MessageBox.Show("Raporunuz Masaüstünde GünlükRapor.txt olarak oluşturuldu.");
-        rapor.SatılanUrunler.Clear();
+
+
+    }
+
+    private void btnAylikRapor_Click(object sender, EventArgs e)
+    {
+        btnAylikRapor.Enabled = false;
+        printAylikRapor.DefaultPageSettings.PaperSize = new PaperSize("Custom", 300, 400);
+        printPreview.Document = printAylikRapor;
+        printPreview.ShowDialog();
+        DataContext.AylikRapor = null;
+        aylikRapoor.GunlukCirolar.Clear();
+        aylikRapoor.Tarihler.Clear();
+        DataHelper.Save(DataContext);
     }
 }

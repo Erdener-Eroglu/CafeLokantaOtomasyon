@@ -13,14 +13,22 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
         public EnvanterContext DataContext { get; set; }
         private void UrunForm_Load(object sender, EventArgs e)
         {
+            pbUrunFoto.BackgroundImageLayout = ImageLayout.Stretch;
             cmbKategori.DataSource = DataContext.Kategoriler;
             lstUrunler.DataSource = DataContext.Urunler;
+            FormuTemizle();
         }
 
         private void btnKaydet_Click(object sender, EventArgs e)
         {
             try
             {
+                if (AynisiVarMi(txtUrunAdi.Text))
+                {
+                    MessageBox.Show("Bu ürün bulunmaktadır. Lütfen adını değiştirin");
+                    txtUrunAdi.Clear();
+                    return;
+                }
                 Urun urun = new Urun()
                 {
                     Kategori = (Kategori)cmbKategori.SelectedItem,
@@ -36,6 +44,7 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
                 lstUrunler.DataSource = null;
                 lstUrunler.DataSource = DataContext.Urunler;
                 DataHelper.Save(DataContext);
+                FormuTemizle();
             }
             catch (Exception ex)
             {
@@ -59,7 +68,14 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
 
         private void lstUrunler_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstUrunler.SelectedItem == null) return;
+            if (lstUrunler.SelectedItem == null)
+            {
+                btnGuncelle.Enabled = false;
+                btnKaydet.Enabled = true;
+                return;
+            }
+            btnGuncelle.Enabled = true;
+            btnKaydet.Enabled = false;
             Urun urun = (Urun)lstUrunler.SelectedItem;
             txtUrunAdi.Text = urun.Ad;
             txtUrunFiyat.Text = urun.Fiyat.ToString();
@@ -76,6 +92,12 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
             Urun urun = (Urun)lstUrunler.SelectedItem;
             try
             {
+                if (AynisiVarMi(txtUrunAdi.Text))
+                {
+                    MessageBox.Show("Bu ürün bulunmaktadır. Lütfen adını değiştirin");
+                    txtUrunAdi.Clear();
+                    return;
+                }
                 if (pbUrunFoto.Image != null)
                 {
                     urun.Foto = (byte[])(new ImageConverter().ConvertTo(pbUrunFoto.Image, typeof(byte[])));
@@ -86,6 +108,8 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
                 lstUrunler.DataSource = null;
                 lstUrunler.DataSource = DataContext.Urunler;
                 DataHelper.Save(DataContext);
+                FormuTemizle();
+
             }
             catch (Exception ex)
             {
@@ -105,6 +129,32 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
             DataHelper.Save(DataContext);
             lstUrunler.DataSource = null;
             lstUrunler.DataSource = DataContext.Urunler;
+        }
+        private void FormuTemizle()
+        {
+            txtUrunAdi.Clear();
+            txtUrunFiyat.Clear();
+            cmbKategori.SelectedIndex = -1;
+            lstUrunler.SelectedIndex = -1;
+            pbUrunFoto.Image = null;
+        }
+
+        private void UrunForm_Click(object sender, EventArgs e)
+        {
+            lstUrunler.SelectedIndex = -1;
+            cmbKategori.SelectedIndex = -1;
+            //FormuTemizle();
+        }
+        private bool AynisiVarMi(string urunIsmi)
+        {
+            foreach (var item in DataContext.Urunler)
+            {
+                if (urunIsmi.ToLower() == item.Ad.ToLower())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

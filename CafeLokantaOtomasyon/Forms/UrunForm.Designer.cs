@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UrunForm));
             label1 = new Label();
             cmbKategori = new ComboBox();
             label2 = new Label();
@@ -61,7 +62,7 @@
             cmbKategori.Location = new Point(140, 137);
             cmbKategori.Name = "cmbKategori";
             cmbKategori.Size = new Size(186, 28);
-            cmbKategori.TabIndex = 1;
+            cmbKategori.TabIndex = 0;
             // 
             // label2
             // 
@@ -86,17 +87,19 @@
             txtUrunAdi.Location = new Point(140, 179);
             txtUrunAdi.Name = "txtUrunAdi";
             txtUrunAdi.Size = new Size(186, 27);
-            txtUrunAdi.TabIndex = 4;
+            txtUrunAdi.TabIndex = 1;
             // 
             // txtUrunFiyat
             // 
             txtUrunFiyat.Location = new Point(140, 220);
             txtUrunFiyat.Name = "txtUrunFiyat";
             txtUrunFiyat.Size = new Size(186, 27);
-            txtUrunFiyat.TabIndex = 4;
+            txtUrunFiyat.TabIndex = 2;
             // 
             // pbUrunFoto
             // 
+            pbUrunFoto.BackgroundImage = (Image)resources.GetObject("pbUrunFoto.BackgroundImage");
+            pbUrunFoto.BackgroundImageLayout = ImageLayout.Stretch;
             pbUrunFoto.BorderStyle = BorderStyle.FixedSingle;
             pbUrunFoto.Location = new Point(112, 12);
             pbUrunFoto.Name = "pbUrunFoto";
@@ -114,7 +117,7 @@
             lstUrunler.Location = new Point(343, 12);
             lstUrunler.Name = "lstUrunler";
             lstUrunler.Size = new Size(241, 404);
-            lstUrunler.TabIndex = 6;
+            lstUrunler.TabIndex = 5;
             lstUrunler.SelectedIndexChanged += lstUrunler_SelectedIndexChanged;
             // 
             // cmsSil
@@ -136,7 +139,7 @@
             btnKaydet.Location = new Point(64, 278);
             btnKaydet.Name = "btnKaydet";
             btnKaydet.Size = new Size(107, 75);
-            btnKaydet.TabIndex = 7;
+            btnKaydet.TabIndex = 3;
             btnKaydet.Text = "Kaydet";
             btnKaydet.UseVisualStyleBackColor = true;
             btnKaydet.Click += btnKaydet_Click;
@@ -146,7 +149,7 @@
             btnGuncelle.Location = new Point(219, 278);
             btnGuncelle.Name = "btnGuncelle";
             btnGuncelle.Size = new Size(107, 75);
-            btnGuncelle.TabIndex = 7;
+            btnGuncelle.TabIndex = 4;
             btnGuncelle.Text = "Güncelle";
             btnGuncelle.UseVisualStyleBackColor = true;
             btnGuncelle.Click += btnGuncelle_Click;
@@ -173,6 +176,7 @@
             Name = "UrunForm";
             Text = "UrunForm";
             Load += UrunForm_Load;
+            Click += UrunForm_Click;
             ((System.ComponentModel.ISupportInitialize)pbUrunFoto).EndInit();
             cmsSil.ResumeLayout(false);
             ResumeLayout(false);

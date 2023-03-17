@@ -4,10 +4,8 @@ namespace CafeLokantaOtomasyon.Models;
 
 public class GunlukRapor
 {
-    private DateTime dateTime = DateTime.Now;
+    public DateTime Tarih { get; set; } = DateTime.Now;
     public List<Urun> SatılanUrunler { get; set; } = new List<Urun>();
-    private static readonly string Path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\GünlükRapor.txt";
-    public int SatılmaSayisi { get; set; }
     public void UrunEkle(Urun urun)
     {
         foreach (var item in SatılanUrunler)
@@ -20,17 +18,13 @@ public class GunlukRapor
         }
         SatılanUrunler.Add(urun);
     }
-    public void GunlukRaporOlustur()
+    public decimal ToplamFiyatHesapla()
     {
-        FileStream file = File.Open(Path, FileMode.Append);
-        StreamWriter writer = new StreamWriter(file);
-        writer.WriteLine($"Oluşturulma Tarihi: {dateTime.ToString()}");
+        decimal toplam = 0;
         foreach (var item in SatılanUrunler)
         {
-            writer.WriteLine($"{item.Ad}-{item.SepetekiAdet}");
+            toplam += item.ToplamFiyat();
         }
-        writer.Close();
-        writer.Dispose();
+        return toplam;
     }
-
 }

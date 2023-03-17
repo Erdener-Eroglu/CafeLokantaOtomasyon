@@ -32,10 +32,10 @@
             label1 = new Label();
             txtKategori = new TextBox();
             lstKategori = new ListBox();
-            btnKaydet = new Button();
-            btnGuncelle = new Button();
             cmsSil = new ContextMenuStrip(components);
             silToolStripMenuItem = new ToolStripMenuItem();
+            btnKaydet = new Button();
+            btnGuncelle = new Button();
             cmsSil.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             txtKategori.Location = new Point(21, 69);
             txtKategori.Name = "txtKategori";
             txtKategori.Size = new Size(236, 27);
-            txtKategori.TabIndex = 1;
+            txtKategori.TabIndex = 0;
             // 
             // lstKategori
             // 
@@ -64,28 +64,8 @@
             lstKategori.Location = new Point(277, 23);
             lstKategori.Name = "lstKategori";
             lstKategori.Size = new Size(206, 284);
-            lstKategori.TabIndex = 2;
+            lstKategori.TabIndex = 3;
             lstKategori.SelectedIndexChanged += lstKategori_SelectedIndexChanged;
-            // 
-            // btnKaydet
-            // 
-            btnKaydet.Location = new Point(21, 153);
-            btnKaydet.Name = "btnKaydet";
-            btnKaydet.Size = new Size(115, 96);
-            btnKaydet.TabIndex = 3;
-            btnKaydet.Text = "Kaydet";
-            btnKaydet.UseVisualStyleBackColor = true;
-            btnKaydet.Click += btnKaydet_Click;
-            // 
-            // btnGuncelle
-            // 
-            btnGuncelle.Location = new Point(142, 153);
-            btnGuncelle.Name = "btnGuncelle";
-            btnGuncelle.Size = new Size(115, 96);
-            btnGuncelle.TabIndex = 3;
-            btnGuncelle.Text = "Güncelle";
-            btnGuncelle.UseVisualStyleBackColor = true;
-            btnGuncelle.Click += btnGuncelle_Click;
             // 
             // cmsSil
             // 
@@ -101,6 +81,26 @@
             silToolStripMenuItem.Text = "Sil";
             silToolStripMenuItem.Click += silToolStripMenuItem_Click;
             // 
+            // btnKaydet
+            // 
+            btnKaydet.Location = new Point(21, 153);
+            btnKaydet.Name = "btnKaydet";
+            btnKaydet.Size = new Size(115, 96);
+            btnKaydet.TabIndex = 1;
+            btnKaydet.Text = "Kaydet";
+            btnKaydet.UseVisualStyleBackColor = true;
+            btnKaydet.Click += btnKaydet_Click;
+            // 
+            // btnGuncelle
+            // 
+            btnGuncelle.Location = new Point(142, 153);
+            btnGuncelle.Name = "btnGuncelle";
+            btnGuncelle.Size = new Size(115, 96);
+            btnGuncelle.TabIndex = 2;
+            btnGuncelle.Text = "Güncelle";
+            btnGuncelle.UseVisualStyleBackColor = true;
+            btnGuncelle.Click += btnGuncelle_Click;
+            // 
             // KategoriForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -114,6 +114,7 @@
             Name = "KategoriForm";
             Text = "KategoriForm";
             Load += KategoriForm_Load;
+            Click += KategoriForm_Click;
             cmsSil.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

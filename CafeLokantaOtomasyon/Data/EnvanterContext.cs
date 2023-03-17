@@ -1,4 +1,5 @@
 ﻿using AtesVeSuSiparisOtomasyonu.Models;
+using CafeLokantaOtomasyon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,4 +15,6 @@ public class EnvanterContext
     public List<Kategori> Kategoriler { get; set; } = new List<Kategori>();
     public List<Sepet> Sepetler { get; set; } = new List<Sepet>();
     public List<Urun> Urunler { get; set; } = new List<Urun>();
+    public GunlukRapor GunlukRapor { get; set; }
+    public AylıkRapor AylikRapor { get; set; }
 }
