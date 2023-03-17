@@ -1,17 +1,6 @@
 ﻿using AtesVeSuSiparisOtomasyonu.Data;
 using AtesVeSuSiparisOtomasyonu.Helpers;
 using AtesVeSuSiparisOtomasyonu.Models;
-using Microsoft.PointOfService;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 namespace AtesVeSuSiparisOtomasyonu.Forms;
 
 public partial class KatEkleForm : Form

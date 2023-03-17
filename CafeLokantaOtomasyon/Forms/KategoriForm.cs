@@ -1,7 +1,6 @@
 ﻿using AtesVeSuSiparisOtomasyonu.Data;
 using AtesVeSuSiparisOtomasyonu.Helpers;
 using AtesVeSuSiparisOtomasyonu.Models;
-
 namespace AtesVeSuSiparisOtomasyonu.Forms;
 
 public partial class KategoriForm : Form

@@ -3,7 +3,6 @@ using AtesVeSuSiparisOtomasyonu.Helpers;
 using AtesVeSuSiparisOtomasyonu.Models;
 using CafeLokantaOtomasyon.Models;
 using System.Drawing.Printing;
-
 namespace AtesVeSuSiparisOtomasyonu.Forms;
 public partial class AnaForm : Form
 {
