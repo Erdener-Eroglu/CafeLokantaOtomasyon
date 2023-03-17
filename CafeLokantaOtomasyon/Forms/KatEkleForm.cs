@@ -90,7 +90,6 @@ public partial class KatEkleForm : Form
                     DataContext.Masalar.Remove(DataContext.Masalar[i]);
                     i--;
                 }
-
             }
             for (int i = 1; i <= seciliKat.MasaSayisi; i++)
             {

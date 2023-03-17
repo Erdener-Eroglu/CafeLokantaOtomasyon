@@ -115,7 +115,7 @@ public partial class KategoriForm : Form
     private void KategoriForm_Click(object sender, EventArgs e)
     {
         lstKategori.SelectedIndex = -1;
-        FormuTemzile();
+        //FormuTemzile();
     }
 
     private bool AynisiVarMi(string kategoriIsmi)

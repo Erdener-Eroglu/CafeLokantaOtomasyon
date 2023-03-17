@@ -40,7 +40,7 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
                 {
                     urun.Foto = (byte[])(new ImageConverter().ConvertTo(pbUrunFoto.Image, typeof(byte[])));
                 }
-                DataContext.Urunler.Add(urun);
+                DataContext.Urunler.Add(urun);//DataContexte Eklemezsen Kaydedemezsin.
                 lstUrunler.DataSource = null;
                 lstUrunler.DataSource = DataContext.Urunler;
                 DataHelper.Save(DataContext);
@@ -58,8 +58,8 @@ namespace AtesVeSuSiparisOtomasyonu.Forms
             //OpenFileDialog dosyaAc = new OpenFileDialog();
             dosyaAc.Title = "Resim Seçiniz";
             dosyaAc.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            dosyaAc.Multiselect = false;
-            dosyaAc.Filter = "Resim Dosyası |*.jpg;*.png;*.jpeg";
+            dosyaAc.Multiselect = false; //Çoklu resim seçmeyi kapatıyoruz.
+            dosyaAc.Filter = "Resim Dosyası |*.jpg;*.png;*.jpeg"; //Seçilebilecek dosya türlerini belirliyoruz.
             if (dosyaAc.ShowDialog() == DialogResult.OK)
             {
                 pbUrunFoto.Image = Image.FromFile(dosyaAc.FileName);
